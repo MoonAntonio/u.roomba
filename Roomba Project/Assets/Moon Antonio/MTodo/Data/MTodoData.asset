@@ -11,7 +11,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 440ef0a678975ba4cbb62d9aced23bb9, type: 3}
   m_Name: MTodoData
   m_EditorClassIdentifier: 
-  Tickets: []
+  Tickets:
+  - Texto: " El Roomba esperara un tiempo mientras decide lo que hacer\r"
+    Nota: 
+    Categoria: TODO
+    Archivo: G:\Moon\User\GitHub\u.roomba\Roomba Project\Assets\Proyecto Roomba\Scripts\Sistemas\Roomba.cs
+    Linea: 38
+    PathAMostrar: Assets/Proyecto Roomba/Scripts/Sistemas/Roomba.cs(38)
+  - Texto: " En caso de que este buscando basura, tendra que elegir un objetivo ->
+      Accion()\r"
+    Nota: 
+    Categoria: TODO
+    Archivo: G:\Moon\User\GitHub\u.roomba\Roomba Project\Assets\Proyecto Roomba\Scripts\Sistemas\Roomba.cs
+    Linea: 44
+    PathAMostrar: Assets/Proyecto Roomba/Scripts/Sistemas/Roomba.cs(44)
+  - Texto: " Con el objetivo seleccionado, ir a por el\r"
+    Nota: 
+    Categoria: TODO
+    Archivo: G:\Moon\User\GitHub\u.roomba\Roomba Project\Assets\Proyecto Roomba\Scripts\Sistemas\Roomba.cs
+    Linea: 49
+    PathAMostrar: Assets/Proyecto Roomba/Scripts/Sistemas/Roomba.cs(49)
+  - Texto: " Si esta con poca bateria o si tiene poco espacio, ir a vaciar y cargar\r"
+    Nota: 
+    Categoria: TODO
+    Archivo: G:\Moon\User\GitHub\u.roomba\Roomba Project\Assets\Proyecto Roomba\Scripts\Sistemas\Roomba.cs
+    Linea: 53
+    PathAMostrar: Assets/Proyecto Roomba/Scripts/Sistemas/Roomba.cs(53)
   Categorias:
   - TODO
   - BUG
