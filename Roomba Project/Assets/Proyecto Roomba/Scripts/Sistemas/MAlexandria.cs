@@ -11,7 +11,7 @@
 using UnityEngine;
 #endregion
 
-namespace MoonPincho
+namespace MoonAntonio.Roomba
 {
 	/// <summary>
 	/// <para>Manager del sistema</para>
@@ -22,7 +22,7 @@ namespace MoonPincho
 		/// <summary>
 		/// <para>Instancia del manager.</para>
 		/// </summary>
-		public static MAlexandria instance = null;									// Instancia del manager
+		public static MAlexandria instance = null;                                  // Instancia del manager
 		#endregion
 
 		#region Iniciadores
@@ -42,6 +42,43 @@ namespace MoonPincho
 			}
 
 			DontDestroyOnLoad(this.gameObject);
+		}
+
+		/// <summary>
+		/// <para>Init de MAlexandria.</para>
+		/// </summary>
+		private void Start()// Init de MAlexandria
+		{
+			// Comprueba si existen errores antes de empezar
+			CompruebaErrores();
+		}
+		#endregion
+
+		#region Metodos
+		private void CompruebaErrores()
+		{
+			// Si el roomba no esta, instanciarlo
+			if (Existe("Roomba") == false)
+			{
+				Instantiate(Resources.Load("Roomba"));
+			}
+		}
+		#endregion
+
+		#region Funcionalidad
+		/// <summary>
+		/// <para>Comprueba si el objeto existe.</para>
+		/// </summary>
+		private bool Existe(string nomObj)// Comprueba si el objeto existe
+		{
+			if (GameObject.Find(nomObj) != null)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		#endregion
 	}
