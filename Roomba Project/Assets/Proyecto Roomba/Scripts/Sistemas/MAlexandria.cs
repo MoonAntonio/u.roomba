@@ -63,7 +63,8 @@ namespace MoonAntonio.Roomba
 			// Si el roomba no esta, instanciarlo
 			if (Existe("Roomba") == false)
 			{
-				Instantiate(Resources.Load("Roomba"));
+				GameObject go = Instantiate(Resources.Load("Roomba")) as GameObject;
+				go.transform.position = GameObject.Find("Manager").GetComponent<Spawnmer>().GetPosicion("SpawnJug");
 			}
 		}
 		#endregion
