@@ -1,29 +1,24 @@
 ﻿//                                  ┌∩┐(◣_◢)┌∩┐
 //																				\\
-// Roomba.cs (20/03/2017)														\\
+// Spawnmer.cs (20/03/2017)														\\
 // Autor: Antonio Mateo (Moon Antonio) 									        \\
-// Descripcion:		Controlador del roomba										\\
+// Descripcion:		Manager que spawmea objetos.								\\
 // Fecha Mod:		20/03/2017													\\
 // Ultima Mod:		Version Inicial												\\
 //******************************************************************************\\
 
 #region Librerias
 using UnityEngine;
+using System.Collections.Generic;
 #endregion
 
 namespace MoonAntonio.Roomba
 {
 	/// <summary>
-	/// <para>Controlador del roomba</para>
+	/// <para>Manager que spawmea objetos</para>
 	/// </summary>
-	public class Roomba : MonoBehaviour 
+	public class Spawnmer : MonoBehaviour 
 	{
-		// TODO 
-	}
-
-
-	public enum Estados
-	{
-
+		public List<GameObject> spawn = new List<GameObject>();
 	}
 }

@@ -55,7 +55,10 @@ namespace MoonAntonio.Roomba
 		#endregion
 
 		#region Metodos
-		private void CompruebaErrores()
+		/// <summary>
+		/// <para>Comprueba si hay errores iniciales.</para>
+		/// </summary>
+		private void CompruebaErrores()// Comprueba si hay errores iniciales
 		{
 			// Si el roomba no esta, instanciarlo
 			if (Existe("Roomba") == false)
