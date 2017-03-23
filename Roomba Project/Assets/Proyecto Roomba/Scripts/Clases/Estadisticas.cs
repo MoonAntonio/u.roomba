@@ -18,10 +18,64 @@ namespace MoonAntonio.Roomba.Clases
 	/// </summary>
 	public class Estadisticas
 	{
-		public float velocidad = 0.0f;
-		public float bateria = 0.0f;
-		public float bateriaMax = 0.0f;
-		public int deposito = 0;
-		public int depositoMax = 0;
+		#region Variables Privadas
+		private float vel;
+		private float velMax;
+		private float bateria;
+		private float bateriaMax;
+		private int deposito;
+		private int depositoMax;
+		#endregion
+
+		#region Propiedades
+		/// <summary>
+		/// <para>Velocidad del roomba.</para>
+		/// </summary>
+		public float Velocidad
+		{
+			get { return vel; }
+			set { vel = value; }
+		}
+		/// <summary>
+		/// <para>Velocidad maxima del roomba.</para>
+		/// </summary>
+		public float VelocidadMax
+		{
+			get { return velMax; }
+			set { velMax = value; }
+		}
+		/// <summary>
+		/// <para>Bateria actual del roomba.</para>
+		/// </summary>
+		public float Bateria
+		{
+			get { return bateria; }
+			set { bateria = value; }
+		}
+		/// <summary>
+		/// <para>Bateria maxima del roomba.</para>
+		/// </summary>
+		public float BateriaMax
+		{
+			get { return bateriaMax; }
+			set { bateriaMax = value; }
+		}
+		/// <summary>
+		/// <para>Deposito actual del roomba.</para>
+		/// </summary>
+		public int Deposito
+		{
+			get { return deposito; }
+			set { deposito = value; }
+		}
+		/// <summary>
+		/// <para>Deposito maximo del roomba.</para>
+		/// </summary>
+		public int DepositoMax
+		{
+			get { return depositoMax; }
+			set { depositoMax = value; }
+		}
+		#endregion
 	}
 }

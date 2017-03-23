@@ -18,12 +18,17 @@ namespace MoonAntonio.Roomba
 	/// <summary>
 	/// <para>Controlador del roomba</para>
 	/// </summary>
-	[Serializable]
 	public class Roomba : MonoBehaviour 
 	{
 		#region Variables Publicas
-		public Estados estado = Estados.Esperando;
-		public Estadisticas stats;
+		/// <summary>
+		/// <para>Estado del roomba.</para>
+		/// </summary>
+		public Estados estado = Estados.Esperando;									// Estado del roomba
+		/// <summary>
+		/// <para>Stats del roomba.</para>
+		/// </summary>
+		public Estadisticas stats;													// Stats del roomba
 		#endregion
 
 		#region Actualizador
