@@ -16,30 +16,32 @@ MonoBehaviour:
     Nota: 
     Categoria: TODO
     Archivo: G:\Moon\User\GitHub\u.roomba\Roomba Project\Assets\Proyecto Roomba\Scripts\Sistemas\Roomba.cs
-    Linea: 38
-    PathAMostrar: Assets/Proyecto Roomba/Scripts/Sistemas/Roomba.cs(38)
+    Linea: 43
+    PathAMostrar: Assets/Proyecto Roomba/Scripts/Sistemas/Roomba.cs(43)
   - Texto: " En caso de que este buscando basura, tendra que elegir un objetivo ->
       Accion()\r"
     Nota: 
     Categoria: TODO
     Archivo: G:\Moon\User\GitHub\u.roomba\Roomba Project\Assets\Proyecto Roomba\Scripts\Sistemas\Roomba.cs
-    Linea: 44
-    PathAMostrar: Assets/Proyecto Roomba/Scripts/Sistemas/Roomba.cs(44)
+    Linea: 49
+    PathAMostrar: Assets/Proyecto Roomba/Scripts/Sistemas/Roomba.cs(49)
   - Texto: " Con el objetivo seleccionado, ir a por el\r"
     Nota: 
     Categoria: TODO
     Archivo: G:\Moon\User\GitHub\u.roomba\Roomba Project\Assets\Proyecto Roomba\Scripts\Sistemas\Roomba.cs
-    Linea: 49
-    PathAMostrar: Assets/Proyecto Roomba/Scripts/Sistemas/Roomba.cs(49)
+    Linea: 54
+    PathAMostrar: Assets/Proyecto Roomba/Scripts/Sistemas/Roomba.cs(54)
   - Texto: " Si esta con poca bateria o si tiene poco espacio, ir a vaciar y cargar\r"
     Nota: 
     Categoria: TODO
     Archivo: G:\Moon\User\GitHub\u.roomba\Roomba Project\Assets\Proyecto Roomba\Scripts\Sistemas\Roomba.cs
-    Linea: 53
-    PathAMostrar: Assets/Proyecto Roomba/Scripts/Sistemas/Roomba.cs(53)
+    Linea: 58
+    PathAMostrar: Assets/Proyecto Roomba/Scripts/Sistemas/Roomba.cs(58)
   Categorias:
   - TODO
   - BUG
+  - FIX
+  - NOTA
   AutoEscaneoMTodo: 0
   RutaDataMTodo: Assets/Moon Antonio/MTodo/Data/MTodoData.asset
   versionActual: 1.5.2
