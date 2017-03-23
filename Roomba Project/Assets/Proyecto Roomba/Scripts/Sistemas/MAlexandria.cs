@@ -65,6 +65,13 @@ namespace MoonAntonio.Roomba
 			{
 				GameObject go = Instantiate(Resources.Load("Roomba")) as GameObject;
 				go.transform.position = GameObject.Find("Manager").GetComponent<Spawnmer>().GetPosicion("SpawnJug");
+
+				// Fijar las estadisticas
+				go.GetComponent<Roomba>().stats.bateria = 100.0f;
+				go.GetComponent<Roomba>().stats.bateriaMax = 100.0f;
+				go.GetComponent<Roomba>().stats.deposito = 0;
+				go.GetComponent<Roomba>().stats.depositoMax = 25;
+				go.GetComponent<Roomba>().stats.velocidad = 10.0f;
 			}
 		}
 		#endregion
