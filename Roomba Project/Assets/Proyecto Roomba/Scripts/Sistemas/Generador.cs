@@ -19,6 +19,13 @@ namespace MoonAntonio.Roomba
 	/// </summary>
 	public class Generador : MonoBehaviour 
 	{
-		
+		public List<GameObject> objetosSpawn = new List<GameObject>();
+
+		private void Start()
+		{
+			objetosSpawn.Add((Resources.Load("Objeto01")) as GameObject);
+			objetosSpawn.Add((Resources.Load("Objeto02")) as GameObject);
+			objetosSpawn.Add((Resources.Load("Objeto03")) as GameObject);
+		}
 	}
 }
