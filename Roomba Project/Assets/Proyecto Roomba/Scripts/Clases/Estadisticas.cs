@@ -9,6 +9,7 @@
 
 #region Librerias
 using UnityEngine;
+using System;
 #endregion
 
 namespace MoonAntonio.Roomba.Clases
@@ -16,6 +17,7 @@ namespace MoonAntonio.Roomba.Clases
 	/// <summary>
 	/// <para>Clase de las estadisticas del roomba</para>
 	/// </summary>
+	[Serializable]
 	public class Estadisticas
 	{
 		#region Variables Privadas

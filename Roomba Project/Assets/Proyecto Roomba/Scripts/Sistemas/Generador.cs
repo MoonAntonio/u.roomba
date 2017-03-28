@@ -9,6 +9,7 @@
 
 #region Librerias
 using UnityEngine;
+using System.Collections.Generic;
 #endregion
 
 namespace MoonAntonio.Roomba
@@ -18,6 +19,6 @@ namespace MoonAntonio.Roomba
 	/// </summary>
 	public class Generador : MonoBehaviour 
 	{
-
+		
 	}
 }
