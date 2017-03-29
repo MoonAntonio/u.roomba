@@ -28,10 +28,6 @@ namespace MoonAntonio.Roomba
 		/// <para>Maximo de objetos</para>
 		/// </summary>
 		public int maxSpawn = 0;											// Maximo de objetos
-		/// <summary>
-		/// <para>Objetos en la escena</para>
-		/// </summary>
-		public List<GameObject> objetos = new List<GameObject>();			// Objetos en la escena
 		#endregion
 
 		#region Variables Privadas
@@ -71,7 +67,7 @@ namespace MoonAntonio.Roomba
 		private void Update()// Actualizador de Generador
 		{
 			// Comprobamos si emos excedido el max de objetos o si el grid esta cargando
-			if (objetos.Count >= maxSpawn || grid.isCompletado == false) return;
+			if (grid.isCompletado == false) return;
 
 			// Aumentamos el contador
 			Contador();
@@ -105,22 +101,18 @@ namespace MoonAntonio.Roomba
 			{
 				case 0:
 					GameObject go1 = Instantiate(objetosPool[0], grid.GetPosicionAleatoria(), Quaternion.identity);
-					objetos.Add(go1);
 					break;
 
 				case 1:
 					GameObject go2 = Instantiate(objetosPool[1], grid.GetPosicionAleatoria(), Quaternion.identity);
-					objetos.Add(go2);
 					break;
 
 				case 2:
 					GameObject go3 = Instantiate(objetosPool[2], grid.GetPosicionAleatoria(), Quaternion.identity);
-					objetos.Add(go3);
 					break;
 
 				default:
 					GameObject go4 = Instantiate(objetosPool[0], grid.GetPosicionAleatoria(), Quaternion.identity);
-					objetos.Add(go4);
 					break;
 			}
 		}

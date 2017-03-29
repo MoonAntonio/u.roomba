@@ -43,7 +43,7 @@ namespace MoonAntonio.Roomba
 		/// <summary>
 		/// <para>Objetivo</para>
 		/// </summary>
-		private GameObject objetivo;                                                // Objetivo
+		public GameObject objetivo;                                                // Objetivo
 		/// <summary>
 		/// <para>Esta cargando el roomba</para>
 		/// </summary>
@@ -140,6 +140,8 @@ namespace MoonAntonio.Roomba
 					return;
 				}
 			}
+
+			if(objetivo != null) Debug.DrawLine(this.transform.position, objetivo.transform.position, Color.blue,100f);
 		}
 
 		/// <summary>
@@ -147,24 +149,25 @@ namespace MoonAntonio.Roomba
 		/// </summary>
 		private void MoverAlObjetivo()// Mueve al Roomba al objetivo
 		{
-			RaycastHit hit;
-
 			if (objetivo == null)
 			{
 				estado = Estados.Esperando;
 			}
 
-			transform.Translate(Vector3.forward * 5 * Time.deltaTime);
+			// Movimiento y rotacion
+			transform.Translate(Vector3.forward * stats.Velocidad * Time.deltaTime);
 			transform.LookAt(objetivo.transform);
 
-			Debug.DrawRay(this.transform.position, Vector3.forward, Color.green);
-			if (Physics.Raycast(this.transform.position, Vector3.forward, out hit, 100))
+			// Debug ray
+			Debug.DrawLine(this.transform.position, objetivo.transform.position,Color.red);
+
+			Ray ray = new Ray(this.transform.position, Vector3.forward);
+			RaycastHit hit;
+
+			if (Physics.Raycast(ray,out hit))
 			{
-				///print(hit.distance);
-				if (hit.distance < 2)
-				{
-					RecogerObjeto(hit.collider.gameObject);
-				}
+				// Recoger el objeto
+				RecogerObjeto(hit.transform.gameObject);
 			}
 		}
 
@@ -174,8 +177,10 @@ namespace MoonAntonio.Roomba
 		/// <param name="go">Prefab del objeto</param>
 		private void RecogerObjeto(GameObject go)// Recoge el objeto
 		{
+			Debug.Log("Recoger Objeto");
 			stats.AddDeposito(1);
-			Destroy(go);
+			DestroyImmediate(go);
+			objetivo = null;
 			estado = Estados.Esperando;
 		}
 
@@ -184,7 +189,21 @@ namespace MoonAntonio.Roomba
 		/// </summary>
 		private void Cargar()
 		{
+			// TODO Implementar
+			estado = Estados.Esperando;
+		}
 
+		/// <summary>
+		/// <para>Cuando algo entra en el trigger</para>
+		/// </summary>
+		/// <param name="other">Otro collider</param>
+		public void OnTriggerEnter(Collider other)// Cuando algo entra en el trigger
+		{
+			if (other.tag == "Objeto")
+			{
+				Debug.Log("Exit");
+				RecogerObjeto(other.gameObject);
+			}
 		}
 		#endregion
 	}

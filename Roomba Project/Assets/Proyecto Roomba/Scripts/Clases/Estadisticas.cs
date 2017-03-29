@@ -21,11 +21,15 @@ namespace MoonAntonio.Roomba.Clases
 	public class Estadisticas
 	{
 		#region Variables Privadas
+		[SerializeField]
 		private float vel;
-		private float velMax;
+		[SerializeField]
 		private float bateria;
+		[SerializeField]
 		private float bateriaMax;
+		[SerializeField]
 		private int deposito;
+		[SerializeField]
 		private int depositoMax;
 		#endregion
 
@@ -37,14 +41,6 @@ namespace MoonAntonio.Roomba.Clases
 		{
 			get { return vel; }
 			set { vel = value; }
-		}
-		/// <summary>
-		/// <para>Velocidad maxima del roomba.</para>
-		/// </summary>
-		public float VelocidadMax
-		{
-			get { return velMax; }
-			set { velMax = value; }
 		}
 		/// <summary>
 		/// <para>Bateria actual del roomba.</para>
