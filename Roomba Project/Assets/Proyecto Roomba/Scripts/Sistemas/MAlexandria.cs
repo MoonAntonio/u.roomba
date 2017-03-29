@@ -73,6 +73,8 @@ namespace MoonAntonio.Roomba
 				go.GetComponent<Roomba>().stats.DepositoMax = 25;
 				go.GetComponent<Roomba>().stats.Velocidad = 0.0f;
 				go.GetComponent<Roomba>().stats.VelocidadMax = 10.0f;
+				go.GetComponent<Roomba>().limiteBateria = 20.0f;
+				go.GetComponent<Roomba>().limiteDeposito = 75.0f;
 			}
 		}
 		#endregion

@@ -28,7 +28,26 @@ namespace MoonAntonio.Roomba
 		/// <summary>
 		/// <para>Stats del roomba.</para>
 		/// </summary>
-		public Estadisticas stats;													// Stats del roomba
+		public Estadisticas stats;                                                  // Stats del roomba
+		/// <summary>
+		/// <para>Limite de la bateria</para>
+		/// </summary>
+		public float limiteBateria = 0f;											// Limite de la bateria
+		/// <summary>
+		/// <para>Limite del deposito</para>
+		/// </summary>
+		public float limiteDeposito = 0f;                                           // Limite del deposito
+		#endregion
+
+		#region Variables Privadas
+		/// <summary>
+		/// <para>Objetivo</para>
+		/// </summary>
+		private GameObject objetivo;                                                // Objetivo
+		/// <summary>
+		/// <para>Esta cargando el roomba</para>
+		/// </summary>
+		private bool isCargando = false;											// Esta cargando el roomba
 		#endregion
 
 		#region Actualizador
@@ -53,18 +72,18 @@ namespace MoonAntonio.Roomba
 					break;
 
 				case Estados.Buscando:
+					// Buscar un objetivo
 					Buscar();
-					// TODO En caso de que este buscando basura, tendra que elegir un objetivo -> Accion()
-					// Calcular el camino
 					break;
 
 				case Estados.Accion:
-					// TODO Con el objetivo seleccionado, ir a por el
+					// Con el objetivo seleccionado, ir a por el
+					MoverAlObjetivo();
 					break;
 
 				case Estados.Cargando:
+					// Si esta con poca bateria o si tiene poco espacio, ir a vaciar y cargar
 					Cargar();
-					// TODO Si esta con poca bateria o si tiene poco espacio, ir a vaciar y cargar
 					break;
 
 				default:
@@ -72,6 +91,8 @@ namespace MoonAntonio.Roomba
 					estado = Estados.Esperando;
 					break;
 			}
+
+			if (isCargando != true) stats.Bateria = stats.Bateria - 1 * Time.deltaTime;
 		}
 		#endregion
 
@@ -79,22 +100,88 @@ namespace MoonAntonio.Roomba
 		/// <summary>
 		/// <para>Decide si ir a <see cref="Buscar"/> o ir a <see cref="Cargar"/>.</para>
 		/// </summary>
-		/// <returns>La decision tomada.</returns>
+		/// <returns>La decision tomada.True si ira a buscar, false si ira a cargar</returns>
 		private bool Decidir()// Decide si ir a <see cref="Buscar"/> o ir a <see cref="Cargar"/>
 		{
-			if (stats.GetBateriaActual() <= 20f)
+			// Si la bateria es superior al estipulado
+			if (stats.GetBateriaActual() >= limiteBateria)
 			{
-				
+				// Si el deposito es inferior al estipulado
+				if (stats.GetDepositoActual() <= limiteDeposito)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// <para>Busca un objetivo</para>
+		/// </summary>
+		private void Buscar()// Busca un objetivo
+		{
+			GameObject[] go = GameObject.FindGameObjectsWithTag("Objeto");
+
+			// Recorremos la lista
+			foreach (GameObject objeto in go)
+			{
+				// Si no hay objetivo, asignarle uno
+				if (objetivo == null)
+				{
+					objetivo = objeto;
+					estado = Estados.Accion;
+					return;
+				}
+			}
+		}
+
+		/// <summary>
+		/// <para>Mueve al Roomba al objetivo</para>
+		/// </summary>
+		private void MoverAlObjetivo()// Mueve al Roomba al objetivo
+		{
+			RaycastHit hit;
+
+			if (objetivo == null)
+			{
+				estado = Estados.Esperando;
 			}
 
-			return false;
+			transform.Translate(Vector3.forward * 5 * Time.deltaTime);
+			transform.LookAt(objetivo.transform);
+
+			Debug.DrawRay(this.transform.position, Vector3.forward, Color.green);
+			if (Physics.Raycast(this.transform.position, Vector3.forward, out hit, 100))
+			{
+				///print(hit.distance);
+				if (hit.distance < 2)
+				{
+					RecogerObjeto(hit.collider.gameObject);
+				}
+			}
 		}
 
-		private void Buscar()
+		/// <summary>
+		/// <para>Recoge el objeto</para>
+		/// </summary>
+		/// <param name="go">Prefab del objeto</param>
+		private void RecogerObjeto(GameObject go)// Recoge el objeto
 		{
-
+			stats.AddDeposito(1);
+			Destroy(go);
+			estado = Estados.Esperando;
 		}
 
+		/// <summary>
+		/// <para>Carga el roomba</para>
+		/// </summary>
 		private void Cargar()
 		{
 

@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 95797387340930010}
   m_Layer: 0
   m_Name: Malla
-  m_TagString: Objeto
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 65403199541152044}
   m_Layer: 0
   m_Name: Objeto02
-  m_TagString: Untagged
+  m_TagString: Objeto
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
