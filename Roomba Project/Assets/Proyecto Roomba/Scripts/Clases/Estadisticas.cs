@@ -3,8 +3,8 @@
 // Estadisticas.cs (20/03/2017)													\\
 // Autor: Antonio Mateo (Moon Antonio) 									        \\
 // Descripcion:		Clase de las estadisticas del roomba						\\
-// Fecha Mod:		20/03/2017													\\
-// Ultima Mod:		Version Inicial												\\
+// Fecha Mod:		29/03/2017													\\
+// Ultima Mod:		Agregado API												\\
 //******************************************************************************\\
 
 #region Librerias
@@ -77,6 +77,30 @@ namespace MoonAntonio.Roomba.Clases
 		{
 			get { return depositoMax; }
 			set { depositoMax = value; }
+		}
+		#endregion
+
+		#region API
+		/// <summary>
+		/// <para>Obtiene la bateria actual en porcentaje.</para>
+		/// </summary>
+		/// <returns>Bateria en %</returns>
+		public float GetBateriaActual()// Obtiene la bateria actual en porcentaje
+		{
+			float temp = 100 * Bateria / BateriaMax;
+
+			return temp;
+		}
+
+		/// <summary>
+		/// <para>Obtiene el deposito actual en %</para>
+		/// </summary>
+		/// <returns>Deposito en %</returns>
+		public float GetDepositoActual()// Obtiene el deposito actual en %
+		{
+			float temp = 100 * Deposito / DepositoMax;
+
+			return temp;
 		}
 		#endregion
 	}

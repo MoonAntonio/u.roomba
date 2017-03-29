@@ -40,12 +40,20 @@ namespace MoonAntonio.Roomba
 			switch (estado)
 			{
 				case Estados.Esperando:
-					// TODO El Roomba esperara un tiempo mientras decide lo que hacer
 					// Buscar si tiene bateria suficiente -> Buscando()
 					// Cargarse si tiene poca bateria -> Cargando()
+					if (Decidir() == true)
+					{
+						estado = Estados.Buscando;
+					}
+					else
+					{
+						estado = Estados.Cargando;
+					}
 					break;
 
 				case Estados.Buscando:
+					Buscar();
 					// TODO En caso de que este buscando basura, tendra que elegir un objetivo -> Accion()
 					// Calcular el camino
 					break;
@@ -55,6 +63,7 @@ namespace MoonAntonio.Roomba
 					break;
 
 				case Estados.Cargando:
+					Cargar();
 					// TODO Si esta con poca bateria o si tiene poco espacio, ir a vaciar y cargar
 					break;
 
@@ -63,6 +72,32 @@ namespace MoonAntonio.Roomba
 					estado = Estados.Esperando;
 					break;
 			}
+		}
+		#endregion
+
+		#region Metodos
+		/// <summary>
+		/// <para>Decide si ir a <see cref="Buscar"/> o ir a <see cref="Cargar"/>.</para>
+		/// </summary>
+		/// <returns>La decision tomada.</returns>
+		private bool Decidir()// Decide si ir a <see cref="Buscar"/> o ir a <see cref="Cargar"/>
+		{
+			if (stats.GetBateriaActual() <= 20f)
+			{
+				
+			}
+
+			return false;
+		}
+
+		private void Buscar()
+		{
+
+		}
+
+		private void Cargar()
+		{
+
 		}
 		#endregion
 	}
