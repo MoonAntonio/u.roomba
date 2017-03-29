@@ -52,6 +52,19 @@ namespace MoonAntonio.Roomba
 		}
 		#endregion
 
+		#region API
+		/// <summary>
+		/// <para>Obtiene una posicion en el espacio del grid.</para>
+		/// </summary>
+		/// <returns>Posicion en el espacio del grid</returns>
+		public Vector3 GetPosicionAleatoria()// Obtiene una posicion en el espacio del grid
+		{
+			int temp = Random.Range(0, vertices.Length);
+
+			return vertices[temp];
+		}
+		#endregion
+
 		#region Metodos
 		/// <summary>
 		/// <para>Generamos el grid.</para>

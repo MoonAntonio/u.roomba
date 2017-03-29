@@ -48,7 +48,7 @@ namespace MoonAntonio.Roomba
 		#region Actualizador
 		private void Update()
 		{
-			if (objetos.Count >= maxSpawn) return;
+			if (objetos.Count >= maxSpawn || grid.isCompletado == false) return;
 
 			Contador();
 		}
@@ -61,14 +61,35 @@ namespace MoonAntonio.Roomba
 
 			if (tiempoActual >= tiempoSpawn)
 			{
-				Generar();
+				Generar(Random.Range(0,2));
 				tiempoActual = 0f;
 			}
 		}
 
-		private void Generar()
+		private void Generar(int n)
 		{
+			switch (n)
+			{
+				case 0:
+					GameObject go1 = Instantiate(objetosPool[0], grid.GetPosicionAleatoria(), Quaternion.identity);
+					objetos.Add(go1);
+					break;
 
+				case 1:
+					GameObject go2 = Instantiate(objetosPool[1], grid.GetPosicionAleatoria(), Quaternion.identity);
+					objetos.Add(go2);
+					break;
+
+				case 2:
+					GameObject go3 = Instantiate(objetosPool[2], grid.GetPosicionAleatoria(), Quaternion.identity);
+					objetos.Add(go3);
+					break;
+
+				default:
+					GameObject go4 = Instantiate(objetosPool[0], grid.GetPosicionAleatoria(), Quaternion.identity);
+					objetos.Add(go4);
+					break;
+			}
 		}
 		#endregion
 	}
