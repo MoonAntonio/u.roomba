@@ -162,6 +162,7 @@ namespace MoonAntonio.Roomba
 			Debug.DrawLine(this.transform.position, objetivo.transform.position,Color.red);
 
 			Ray ray = new Ray(this.transform.position, Vector3.forward);
+			Debug.DrawRay(this.transform.position, Vector3.forward, Color.magenta);
 			RaycastHit hit;
 
 			if (Physics.Raycast(ray,out hit))

@@ -105,7 +105,7 @@ namespace MoonAntonio.Roomba.Clases
 		/// <param name="i">Cantidad a agregar al deposito.</param>
 		public void AddDeposito(int i)// Agrega i al deposito actual
 		{
-			Deposito= i;
+			Deposito += i;
 		}
 		#endregion
 	}
