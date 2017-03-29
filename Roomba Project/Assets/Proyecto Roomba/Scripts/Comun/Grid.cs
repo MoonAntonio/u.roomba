@@ -12,7 +12,7 @@ using UnityEngine;
 using System.Collections;
 #endregion
 
-namespace MoonAntonio
+namespace MoonAntonio.Roomba
 {
 	/// <summary>
 	/// <para>Grid de la zona</para>

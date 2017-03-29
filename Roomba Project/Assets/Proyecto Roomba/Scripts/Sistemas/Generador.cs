@@ -20,11 +20,56 @@ namespace MoonAntonio.Roomba
 	public class Generador : MonoBehaviour 
 	{
 		#region Variables Publicas
-
+		public float tiempoSpawn = 0f;
+		public int maxSpawn = 0;
+		public List<GameObject> objetos = new List<GameObject>();
 		#endregion
 
 		#region Variables Privadas
 		private Grid grid;
+
+		private List<GameObject> objetosPool = new List<GameObject>();
+
+		private float tiempoActual = 0f;
+		#endregion
+
+		#region Init
+		private void Start()
+		{
+			// Asignamos los ajustes
+			grid = this.gameObject.GetComponentInChildren(typeof(Grid)) as Grid;
+
+			objetosPool.Add(Resources.Load("Objeto01") as GameObject);
+			objetosPool.Add(Resources.Load("Objeto02") as GameObject);
+			objetosPool.Add(Resources.Load("Objeto03") as GameObject);
+		}
+		#endregion
+
+		#region Actualizador
+		private void Update()
+		{
+			if (objetos.Count >= maxSpawn) return;
+
+			Contador();
+		}
+		#endregion
+
+		#region Metodos
+		private void Contador()
+		{
+			tiempoActual = tiempoActual + 1 * Time.deltaTime;
+
+			if (tiempoActual >= tiempoSpawn)
+			{
+				Generar();
+				tiempoActual = 0f;
+			}
+		}
+
+		private void Generar()
+		{
+
+		}
 		#endregion
 	}
 }
