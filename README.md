@@ -6,3 +6,9 @@
 
 # Roomba
 Estudio y puesta en accion de un roomba en Unity3D
+
+<p align="center">
+
+<img src="https://github.com/MoonAntonio/u.roomba/blob/master/Res/imgPrev.gif?raw=true">
+
+</p>
