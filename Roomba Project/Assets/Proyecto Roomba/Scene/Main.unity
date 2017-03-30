@@ -135,11 +135,6 @@ Prefab:
       propertyPath: tiempoSpawn
       value: 0.01
       objectReference: {fileID: 0}
-    - target: {fileID: 114235600322147774, guid: 5016b15b0e3812a47b6f76066a2e411c,
-        type: 2}
-      propertyPath: tiempoSpawn
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5016b15b0e3812a47b6f76066a2e411c, type: 2}
   m_IsPrefabParent: 0
