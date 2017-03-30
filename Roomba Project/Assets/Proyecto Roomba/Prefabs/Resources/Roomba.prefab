@@ -239,5 +239,5 @@ MonoBehaviour:
   limiteBateria: 20
   limiteDeposito: 75
   isRutaTest: 1
-  objetivos: []
-  isCargando: 0
+  alarmaIzq: {fileID: 23107688471886306}
+  alarmaDer: {fileID: 23933715849687168}
