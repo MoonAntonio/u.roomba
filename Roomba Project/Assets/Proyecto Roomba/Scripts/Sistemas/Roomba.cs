@@ -8,7 +8,7 @@
 //******************************************************************************\\
 
 #region Librerias
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using MoonAntonio.Roomba.Clases;
 #endregion
@@ -37,17 +37,25 @@ namespace MoonAntonio.Roomba
 		/// <para>Limite del deposito</para>
 		/// </summary>
 		public float limiteDeposito = 0f;                                           // Limite del deposito
+		/// <summary>
+		/// <para>Lista de objetos en escena.</para>
+		/// </summary>
+		public SortedList<float, GameObject> listaObjetos;                          // Lista de objetos en escena
+		/// <summary>
+		/// <para>Ruta que se genera.</para>
+		/// </summary>
+		public bool isRutaTest = false;												// Ruta que se genera
 		#endregion
 
 		#region Variables Privadas
 		/// <summary>
 		/// <para>Objetivo</para>
 		/// </summary>
-		public GameObject objetivo;                                                // Objetivo
+		public List<GameObject> objetivos = new List<GameObject>();				// Objetivos
 		/// <summary>
 		/// <para>Esta cargando el roomba</para>
 		/// </summary>
-		private bool isCargando = false;											// Esta cargando el roomba
+		public bool isCargando = false;											// Esta cargando el roomba
 		#endregion
 
 		#region Actualizador
@@ -128,20 +136,21 @@ namespace MoonAntonio.Roomba
 		private void Buscar()// Busca un objetivo
 		{
 			GameObject[] go = GameObject.FindGameObjectsWithTag("Objeto");
+			listaObjetos = new SortedList<float, GameObject>();
 
 			// Recorremos la lista
 			foreach (GameObject objeto in go)
 			{
-				// Si no hay objetivo, asignarle uno
-				if (objetivo == null)
-				{
-					objetivo = objeto;
-					estado = Estados.Accion;
-					return;
-				}
+				listaObjetos.Add(Vector3.Distance(transform.position, objeto.transform.position), objeto);
 			}
 
-			if(objetivo != null) Debug.DrawLine(this.transform.position, objetivo.transform.position, Color.blue,100f);
+			objetivos = new List<GameObject>(listaObjetos.Values);
+
+			if (listaObjetos.Count != 0 && isRutaTest == true)
+			{
+				Debug.DrawLine(this.transform.position, objetivos[0].transform.position, Color.blue, 100f);
+				if(objetivos[0].gameObject.tag == "Objeto") estado = Estados.Accion;
+			} 
 		}
 
 		/// <summary>
@@ -149,27 +158,19 @@ namespace MoonAntonio.Roomba
 		/// </summary>
 		private void MoverAlObjetivo()// Mueve al Roomba al objetivo
 		{
-			if (objetivo == null)
+			if (objetivos == null)
 			{
 				estado = Estados.Esperando;
 			}
 
 			// Movimiento y rotacion
 			transform.Translate(Vector3.forward * stats.Velocidad * Time.deltaTime);
-			transform.LookAt(objetivo.transform);
+			transform.LookAt(objetivos[0].transform);
 
 			// Debug ray
-			Debug.DrawLine(this.transform.position, objetivo.transform.position,Color.red);
+			Debug.DrawLine(this.transform.position, objetivos[0].transform.position,Color.red);
 
-			Ray ray = new Ray(this.transform.position, Vector3.forward);
-			Debug.DrawRay(this.transform.position, Vector3.forward, Color.magenta);
-			RaycastHit hit;
-
-			if (Physics.Raycast(ray,out hit))
-			{
-				// Recoger el objeto
-				RecogerObjeto(hit.transform.gameObject);
-			}
+			if (Vector3.Distance(transform.position, objetivos[0].transform.position) < 1f) RecogerObjeto(objetivos[0]);
 		}
 
 		/// <summary>
@@ -178,10 +179,9 @@ namespace MoonAntonio.Roomba
 		/// <param name="go">Prefab del objeto</param>
 		private void RecogerObjeto(GameObject go)// Recoge el objeto
 		{
-			Debug.Log("Recoger Objeto");
 			stats.AddDeposito(1);
 			DestroyImmediate(go);
-			objetivo = null;
+			objetivos.Clear();
 			estado = Estados.Esperando;
 		}
 
