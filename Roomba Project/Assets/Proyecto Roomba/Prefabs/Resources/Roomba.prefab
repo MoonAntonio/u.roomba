@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33880396780044710}
   - component: {fileID: 23837115781816764}
   - component: {fileID: 114057425147738960}
-  - component: {fileID: 135588951900397036}
   m_Layer: 8
   m_Name: Roomba
   m_TagString: Roomba
@@ -239,16 +238,6 @@ MonoBehaviour:
     depositoMax: 0
   limiteBateria: 20
   limiteDeposito: 75
-  objetivo: {fileID: 0}
---- !u!135 &135588951900397036
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1040256812392806}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.49
-  m_Center: {x: 0, y: 0, z: 0}
+  isRutaTest: 1
+  objetivos: []
+  isCargando: 0
