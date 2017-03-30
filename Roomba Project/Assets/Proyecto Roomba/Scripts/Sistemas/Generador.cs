@@ -42,7 +42,11 @@ namespace MoonAntonio.Roomba
 		/// <summary>
 		/// <para>Tiempo de spawn actual</para>
 		/// </summary>
-		private float tiempoActual = 0f;									// Tiempo de spawn actual
+		private float tiempoActual = 0f;                                    // Tiempo de spawn actual
+		/// <summary>
+		/// <para>Contador de objetos totales.</para>
+		/// </summary>
+		private int tempConteo = 0;											// Contador de objetos totales
 		#endregion
 
 		#region Init
@@ -101,18 +105,26 @@ namespace MoonAntonio.Roomba
 			{
 				case 0:
 					GameObject go1 = Instantiate(objetosPool[0], grid.GetPosicionAleatoria(), Quaternion.identity);
+					go1.name = "Objeto" + tempConteo;
+					tempConteo++;
 					break;
 
 				case 1:
 					GameObject go2 = Instantiate(objetosPool[1], grid.GetPosicionAleatoria(), Quaternion.identity);
+					go2.name = "Objeto" + tempConteo;
+					tempConteo++;
 					break;
 
 				case 2:
 					GameObject go3 = Instantiate(objetosPool[2], grid.GetPosicionAleatoria(), Quaternion.identity);
+					go3.name = "Objeto" + tempConteo;
+					tempConteo++;
 					break;
 
 				default:
 					GameObject go4 = Instantiate(objetosPool[0], grid.GetPosicionAleatoria(), Quaternion.identity);
+					go4.name = "Objeto" + tempConteo;
+					tempConteo++;
 					break;
 			}
 		}

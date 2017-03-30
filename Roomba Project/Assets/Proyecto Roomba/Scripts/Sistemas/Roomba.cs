@@ -3,8 +3,8 @@
 // Roomba.cs (20/03/2017)														\\
 // Autor: Antonio Mateo (Moon Antonio) 									        \\
 // Descripcion:		Controlador del roomba										\\
-// Fecha Mod:		20/03/2017													\\
-// Ultima Mod:		Version Inicial												\\
+// Fecha Mod:		30/03/2017													\\
+// Ultima Mod:		Agregada funcionalidad de roomba							\\
 //******************************************************************************\\
 
 #region Librerias
@@ -44,18 +44,23 @@ namespace MoonAntonio.Roomba
 		/// <summary>
 		/// <para>Ruta que se genera.</para>
 		/// </summary>
-		public bool isRutaTest = false;												// Ruta que se genera
+		public bool isRutaTest = false;                                             // Ruta que se genera
+		public MeshRenderer alarmaIzq, alarmaDer;
 		#endregion
 
 		#region Variables Privadas
 		/// <summary>
 		/// <para>Objetivo</para>
 		/// </summary>
-		public List<GameObject> objetivos = new List<GameObject>();				// Objetivos
+		private List<GameObject> objetivos = new List<GameObject>();				// Objetivos
+		/// <summary>
+		/// <para>Sitio donde el roomba se carga.</para>
+		/// </summary>
+		private Transform cargador = null;											// Sitio donde el roomba se carga
 		/// <summary>
 		/// <para>Esta cargando el roomba</para>
 		/// </summary>
-		public bool isCargando = false;											// Esta cargando el roomba
+		private bool isCargando = false;											// Esta cargando el roomba
 		#endregion
 
 		#region Actualizador
@@ -75,7 +80,8 @@ namespace MoonAntonio.Roomba
 					}
 					else
 					{
-						estado = Estados.Cargando;
+						estado = Estados.Volviendo;
+						AlarmaDeposito();
 					}
 					break;
 
@@ -89,9 +95,14 @@ namespace MoonAntonio.Roomba
 					MoverAlObjetivo();
 					break;
 
-				case Estados.Cargando:
+				case Estados.Volviendo:
 					// Si esta con poca bateria o si tiene poco espacio, ir a vaciar y cargar
 					Cargar();
+					break;
+
+				case Estados.Cargando:
+					// Mientras esta cargando
+					CargarVaciar();
 					break;
 
 				default:
@@ -100,11 +111,12 @@ namespace MoonAntonio.Roomba
 					break;
 			}
 
-			if (isCargando != true) stats.Bateria = stats.Bateria - 1 * Time.deltaTime;
+			if (isCargando != true && estado != Estados.Esperando && estado != Estados.Cargando) stats.Bateria = stats.Bateria - 1 * Time.deltaTime;
 		}
 		#endregion
 
 		#region Metodos
+		#region Logica
 		/// <summary>
 		/// <para>Decide si ir a <see cref="Buscar"/> o ir a <see cref="Cargar"/>.</para>
 		/// </summary>
@@ -129,7 +141,9 @@ namespace MoonAntonio.Roomba
 				return false;
 			}
 		}
+		#endregion
 
+		#region Limpiar
 		/// <summary>
 		/// <para>Busca un objetivo</para>
 		/// </summary>
@@ -141,7 +155,11 @@ namespace MoonAntonio.Roomba
 			// Recorremos la lista
 			foreach (GameObject objeto in go)
 			{
-				listaObjetos.Add(Vector3.Distance(transform.position, objeto.transform.position), objeto);
+				// Comprobamos que no entre el mismo objeto 2 veces
+				if (listaObjetos.ContainsValue(objeto) == false)
+				{
+					listaObjetos.Add(Vector3.Distance(transform.position, objeto.transform.position), objeto);
+				}
 			}
 
 			objetivos = new List<GameObject>(listaObjetos.Values);
@@ -149,8 +167,8 @@ namespace MoonAntonio.Roomba
 			if (listaObjetos.Count != 0 && isRutaTest == true)
 			{
 				Debug.DrawLine(this.transform.position, objetivos[0].transform.position, Color.blue, 100f);
-				if(objetivos[0].gameObject.tag == "Objeto") estado = Estados.Accion;
-			} 
+				if (objetivos[0].gameObject.tag == "Objeto") estado = Estados.Accion;
+			}
 		}
 
 		/// <summary>
@@ -168,7 +186,7 @@ namespace MoonAntonio.Roomba
 			transform.LookAt(objetivos[0].transform);
 
 			// Debug ray
-			Debug.DrawLine(this.transform.position, objetivos[0].transform.position,Color.red);
+			Debug.DrawLine(this.transform.position, objetivos[0].transform.position, Color.red);
 
 			if (Vector3.Distance(transform.position, objetivos[0].transform.position) < 1f) RecogerObjeto(objetivos[0]);
 		}
@@ -182,30 +200,79 @@ namespace MoonAntonio.Roomba
 			stats.AddDeposito(1);
 			DestroyImmediate(go);
 			objetivos.Clear();
+			listaObjetos.Clear();
 			estado = Estados.Esperando;
 		}
+		#endregion
 
+		#region Recargar
 		/// <summary>
 		/// <para>Carga el roomba</para>
 		/// </summary>
-		private void Cargar()
+		private void Cargar()// Carga el roomba
 		{
-			// TODO Implementar
-			estado = Estados.Esperando;
+			cargador = GameObject.Find("SpawnJug").transform;
+
+			if (cargador == null) return;
+
+			MoverAlCargador();
 		}
 
 		/// <summary>
-		/// <para>Cuando algo entra en el trigger</para>
+		/// <para>Mueve al sitio de cargar.</para>
 		/// </summary>
-		/// <param name="other">Otro collider</param>
-		public void OnTriggerEnter(Collider other)// Cuando algo entra en el trigger
+		private void MoverAlCargador()//Mueve al sitio de cargar
 		{
-			if (other.tag == "Objeto")
+			if (cargador == null)
 			{
-				Debug.Log("Exit");
-				RecogerObjeto(other.gameObject);
+				estado = Estados.Esperando;
 			}
+
+			// Movimiento y rotacion
+			transform.Translate(Vector3.forward * stats.Velocidad * Time.deltaTime);
+			transform.LookAt(cargador.transform);
+
+			// Debug ray
+			Debug.DrawLine(this.transform.position, cargador.transform.position, Color.cyan);
+
+			if (Vector3.Distance(transform.position, cargador.transform.position) <= 0.5f) estado = Estados.Cargando;
 		}
+
+		/// <summary>
+		/// <para>Carga y vacia al mismo tiempo.</para>
+		/// </summary>
+		private void CargarVaciar()// Carga y vacia al mismo tiempo
+		{
+			stats.Bateria= stats.Bateria + 5 * Time.deltaTime;
+			stats.Deposito = stats.Deposito - 1;
+
+			if (stats.Bateria > 101) stats.Bateria = 100;
+			if (stats.Deposito < 0) stats.Deposito = 0;
+			alarmaIzq.material.color = Color.white;
+			alarmaDer.material.color = Color.white;
+			objetivos.Clear();
+			listaObjetos.Clear();
+			if (stats.Bateria == 100 && stats.Deposito == 0) estado = Estados.Esperando;
+		}
+
+		/// <summary>
+		/// <para>Avisa de que tiene que recargar</para>
+		/// </summary>
+		private void AlarmaDeposito()// Avisa de que tiene que recargar
+		{
+			if (alarmaIzq.material.color == Color.red)
+			{
+				alarmaIzq.material.color = Color.blue;
+				alarmaDer.material.color = Color.red;
+			}
+			else
+			{
+				alarmaIzq.material.color = Color.red;
+				alarmaDer.material.color = Color.blue;
+			}
+			
+		}
+		#endregion
 		#endregion
 	}
 
@@ -217,6 +284,7 @@ namespace MoonAntonio.Roomba
 		Esperando,
 		Buscando,
 		Accion,
+		Volviendo,
 		Cargando
 	}
 }
