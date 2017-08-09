@@ -7,7 +7,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/MoonAntonio/u.roomba.svg)](https://github.com/MoonAntonio/u.roomba/stargazers)
 
 # Roomba
-Estudio y puesta en accion de un roomba en Unity3D
+Estudio y puesta en accion de un roomba en Unity3D (Sin grid)
 
 <p align="center">
 
