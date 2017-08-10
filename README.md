@@ -6,7 +6,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/MoonAntonio/u.roomba.svg)](https://github.com/MoonAntonio/u.roomba/network)
 [![GitHub stars](https://img.shields.io/github/stars/MoonAntonio/u.roomba.svg)](https://github.com/MoonAntonio/u.roomba/stargazers)
 
-# Roomba
+# Roomba 1.0
 Estudio y puesta en accion de un roomba en Unity3D (Sin grid)
 
 <p align="center">
